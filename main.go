@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"runtime"
+	"runtime/pprof"
 
 	"github.com/dgraph-io/badger"
 )
@@ -49,6 +50,7 @@ func leakFast() {
 			log.Fatal(err)
 		}
 		runtime.GC()
+		pprof.Lookup("goroutine").WriteTo(os.Stdout, 1)
 	}
 }
 
